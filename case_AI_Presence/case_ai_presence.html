@@ -401,7 +401,7 @@
 
 <!-- ── Video ─────────────────────────────────────────────────────────────── -->
 <div class="video-block">
-  <video src="video_presentation.mp4" autoplay muted playsinline loop></video>
+  <video id="heroVideo" src="video_presentation.mp4" autoplay muted playsinline loop webkit-playsinline></video>
 </div>
 
 <!-- ── Case intro ────────────────────────────────────────────────────────── -->
@@ -540,6 +540,22 @@ var header = document.getElementById('caseHeader');
 window.addEventListener('scroll', function() {
   header.classList.toggle('scrolled', window.scrollY > 60);
 });
+
+(function() {
+  var v = document.getElementById('heroVideo');
+  if (!v) return;
+  v.muted = true;
+  v.setAttribute('muted', '');
+  var p = v.play();
+  if (p !== undefined) {
+    p.catch(function() {
+      document.addEventListener('touchstart', function resume() {
+        v.play();
+        document.removeEventListener('touchstart', resume);
+      }, { once: true });
+    });
+  }
+})();
 
 if (window.matchMedia('(max-width: 700px)').matches) {
   var slides = document.querySelectorAll('.hero-slide');
