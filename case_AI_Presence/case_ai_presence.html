@@ -216,6 +216,26 @@
     .hero h1 { font-size: clamp(13px, 4.2vw, 22px); white-space: nowrap; letter-spacing: -0.02em; }
     .hero p  { font-size: 14px; white-space: normal; }
     .hero-break::before { content: '\A'; white-space: pre; }
+    .hero-static { display: none; }
+    .hero-slides {
+      display: block;
+      position: relative;
+      min-height: 2.4em;
+    }
+    .hero-slide {
+      display: block;
+      position: absolute;
+      top: 0; left: 0;
+      font-size: 14px;
+      color: #666;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .hero-slide--active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .statement { padding: 40px 24px; min-height: auto; }
     .statement p { font-size: 17px; }
@@ -349,6 +369,7 @@
   .footer-hurski { width: 100%; margin-top: 40px; line-height: 0; display: flex; align-items: flex-end; }
   .footer-hurski .hurski-text { flex: 1; height: auto; display: block; min-width: 0; }
   .footer-hurski .hurski-dot { flex-shrink: 0; width: 14%; aspect-ratio: 1; animation: spin-slow 8s linear infinite; margin-bottom: -0.5%; margin-left: -2%; }
+  .hero-slides { display: none; }
 </style>
 </head>
 <body>
@@ -365,7 +386,11 @@
 <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
 <section class="hero">
   <h1>From Binary Status to Human Presence</h1>
-  <p>Thousands of contacts, yet zero connection. <span class="hero-break">Current</span> status indicators leave us in a digital void.</p>
+  <p class="hero-static">Thousands of contacts, yet zero connection. <span class="hero-break">Current</span> status indicators leave us in a digital void.</p>
+  <div class="hero-slides" aria-hidden="true">
+    <span class="hero-slide hero-slide--active">Thousands of contacts, yet zero connection.</span>
+    <span class="hero-slide">Current status indicators leave us in a digital void.</span>
+  </div>
 </section>
 
 <!-- ── Statement ─────────────────────────────────────────────────────────── -->
@@ -515,6 +540,16 @@ var header = document.getElementById('caseHeader');
 window.addEventListener('scroll', function() {
   header.classList.toggle('scrolled', window.scrollY > 60);
 });
+
+if (window.matchMedia('(max-width: 700px)').matches) {
+  var slides = document.querySelectorAll('.hero-slide');
+  var current = 0;
+  setInterval(function() {
+    slides[current].classList.remove('hero-slide--active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('hero-slide--active');
+  }, 3000);
+}
 </script>
 </body>
 </html>
