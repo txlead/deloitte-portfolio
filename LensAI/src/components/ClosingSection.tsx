@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import closingSphere from '/closing-sphere.png';
 
 const WORDS = "Let's build something the world hasn't seen yet.".split(' ');
+const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 
 export default function ClosingSection() {
   return (
@@ -79,7 +80,7 @@ export default function ClosingSection() {
         transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
         style={{ position: 'relative', zIndex: 1, marginTop: '48px', textAlign: 'center' }}
       >
-        <p style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: 'clamp(14px, 1.5vw, 18px)', color: '#888', marginBottom: '24px', letterSpacing: '-0.01em' }}>
+        <p style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: isMobile ? '36px' : 'clamp(14px, 1.5vw, 18px)', fontWeight: isMobile ? 700 : 400, color: isMobile ? '#05050C' : '#888', marginBottom: '24px', letterSpacing: '-0.01em' }}>
           Keep exploring.
         </p>
         <a
@@ -89,12 +90,14 @@ export default function ClosingSection() {
             alignItems: 'center',
             gap: '12px',
             fontFamily: "'Inter Tight', sans-serif",
-            fontSize: 'clamp(16px, 2vw, 22px)',
+            fontSize: isMobile ? '24px' : 'clamp(16px, 2vw, 22px)',
             fontWeight: 500,
             color: '#05050C',
             border: '1.5px solid #05050C',
             borderRadius: '100px',
-            padding: 'clamp(14px, 2vw, 22px) clamp(28px, 4vw, 56px)',
+            padding: isMobile ? '28px 56px' : 'clamp(14px, 2vw, 22px) clamp(28px, 4vw, 56px)',
+            width: isMobile ? '80%' : 'auto',
+            justifyContent: isMobile ? 'center' : 'flex-start',
             textDecoration: 'none',
             letterSpacing: '-0.01em',
             position: 'relative',
