@@ -29,8 +29,8 @@ export default function ClosingSection() {
           top: 0,
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '95%',
-          maxWidth: 1500,
+          width: '130%',
+          maxWidth: 1800,
           pointerEvents: 'none',
         }}
       >
@@ -44,7 +44,7 @@ export default function ClosingSection() {
 
       <h2
         style={{
-          fontSize: 'clamp(40px, 6vw, 80px)',
+          fontSize: 'clamp(28px, 6vw, 80px)',
           fontWeight: 500,
           letterSpacing: '-2px',
           lineHeight: 1.15,
