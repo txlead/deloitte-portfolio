@@ -277,10 +277,27 @@
   .dl-btn.pointed { transform: scale(1.04); box-shadow: 0 0 0 2px #2E5CE6; }
   .dl-btn.triggered { transform: scale(0.97); }
 
+  /* ── Burger menu ── */
+  .burger-btn { display: none; }
+  .mob-menu { position: fixed; inset: 0; background: #fff; z-index: 9000; flex-direction: column; align-items: center; justify-content: center; gap: 40px; opacity: 0; pointer-events: none; display: flex; transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1); }
+  .mob-menu.open { opacity: 1; pointer-events: all; }
+  .mob-menu a { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 32px; font-weight: 500; color: #0d0d0d; text-decoration: none; letter-spacing: -0.02em; transform: translateY(18px); opacity: 0; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s cubic-bezier(0.4,0,0.2,1); }
+  .mob-menu.open a { transform: translateY(0); opacity: 1; }
+  .mob-menu.open a:nth-child(2) { transition-delay: 0.06s; }
+  .mob-menu.open a:nth-child(3) { transition-delay: 0.12s; }
+  .mob-menu.open a:nth-child(4) { transition-delay: 0.18s; }
+  .mob-menu-close { position: absolute; top: 12px; right: 20px; background: none; border: none; cursor: pointer; padding: 6px; opacity: 0; transform: rotate(-45deg); transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s; }
+  .mob-menu.open .mob-menu-close { opacity: 1; transform: rotate(0deg); }
+
   @media (max-width: 700px) {
     .case-header { padding: 12px 24px; }
     .case-header .ch-logo img { width: 36px; height: 36px; }
     .case-header nav, .case-header .ch-about { display: none; }
+    .burger-btn { display: flex; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; padding: 6px; }
+    .burger-btn span { display: block; width: 24px; height: 1.5px; background: currentColor; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+    .burger-btn.active span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+    .burger-btn.active span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
+
     .hero h1 { font-size: clamp(20px, 5.5vw, 32px); white-space: normal; letter-spacing: -0.02em; }
     .hero p { font-size: 14px; }
     .hero { padding: 0 24px; }
@@ -304,10 +321,20 @@
 </head>
 <body>
 
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-menu-close" id="mobMenuClose" aria-label="Close menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <a href="../about.html">About</a>
+  <a href="mailto:uxhurski@gmail.com">Contact</a>
+  <a href="https://hurski.studio/" target="_blank" rel="noopener">Brand Portfolio</a>
+</div>
+
 <header class="case-header" id="caseHeader">
   <button class="ch-logo" id="backBtn"><img src="../symbol.png" alt="Matt Hurski" /></button>
   <nav><a href="../index.html">Home</a></nav>
   <a class="ch-about" href="../about.html">About</a>
+  <button class="burger-btn" id="burgerBtn" aria-label="Open menu"><span></span><span></span></button>
 </header>
 
 <section class="hero">
@@ -454,6 +481,18 @@ document.getElementById('backBtn').addEventListener('click', function() {
   curtain.classList.add('on');
   setTimeout(function() { window.location.href = '../index.html'; }, 480);
 });
+
+(function(){
+  var btn = document.getElementById('burgerBtn');
+  var menu = document.getElementById('mobMenu');
+  var close = document.getElementById('mobMenuClose');
+  if (!btn || !menu) return;
+  function openMenu() { menu.classList.add('open'); btn.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); btn.classList.remove('active'); document.body.style.overflow = ''; }
+  btn.addEventListener('click', openMenu);
+  close.addEventListener('click', closeMenu);
+  menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeMenu); });
+})();
 </script>
 </body>
 </html>
