@@ -15,9 +15,9 @@ const TOPIC_SPHERES = [
 ];
 
 const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-const SPHERE_SCALE = isMobile ? 0.38 : 1;
-const ORBIT_RADIUS_X = isMobile ? 110 : 560;
-const ORBIT_RADIUS_Y = isMobile ? 80 : 320;
+const SPHERE_SCALE = isMobile ? 0.5 : 1;
+const ORBIT_RADIUS_X = isMobile ? 200 : 560;
+const ORBIT_RADIUS_Y = isMobile ? 155 : 320;
 const ORBIT_DURATION = 26;
 
 function TopicSphere({

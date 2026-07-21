@@ -27,7 +27,7 @@ export default function ClosingSection() {
         aria-hidden
         style={{
           position: 'absolute',
-          top: '-10%',
+          ...(isMobile ? { bottom: '-5%', top: 'auto' } : { top: '-10%' }),
           left: '50%',
           transform: 'translateX(-50%)',
           width: '160%',
@@ -43,42 +43,44 @@ export default function ClosingSection() {
         />
       </div>
 
-      <h2
-        style={{
-          fontSize: 'clamp(28px, 6vw, 80px)',
-          fontWeight: 700,
-          letterSpacing: '-2px',
-          lineHeight: 1.15,
-          color: '#05050C',
-          margin: 0,
-          maxWidth: 1100,
-          display: 'flex',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        {WORDS.map((word, i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-            style={{ display: 'inline-block', marginRight: '0.28em' }}
-          >
-            {word}
-          </motion.span>
-        ))}
-      </h2>
+      {!isMobile && (
+        <h2
+          style={{
+            fontSize: 'clamp(28px, 6vw, 80px)',
+            fontWeight: 700,
+            letterSpacing: '-2px',
+            lineHeight: 1.15,
+            color: '#05050C',
+            margin: 0,
+            maxWidth: 1100,
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          {WORDS.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '0px 0px -100px 0px' }}
+              transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              style={{ display: 'inline-block', marginRight: '0.28em' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </h2>
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        style={{ position: 'relative', zIndex: 1, marginTop: '48px', textAlign: 'center' }}
+        style={{ position: 'relative', zIndex: 1, marginTop: isMobile ? '0px' : '48px', textAlign: 'center' }}
       >
         <p style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: isMobile ? '36px' : 'clamp(14px, 1.5vw, 18px)', fontWeight: isMobile ? 700 : 400, color: isMobile ? '#05050C' : '#888', marginBottom: '24px', letterSpacing: '-0.01em' }}>
           Keep exploring.
@@ -90,13 +92,13 @@ export default function ClosingSection() {
             alignItems: 'center',
             gap: '12px',
             fontFamily: "'Inter Tight', sans-serif",
-            fontSize: isMobile ? '24px' : 'clamp(16px, 2vw, 22px)',
+            fontSize: isMobile ? '26px' : 'clamp(16px, 2vw, 22px)',
             fontWeight: 500,
             color: '#05050C',
             border: '1.5px solid #05050C',
             borderRadius: '100px',
-            padding: isMobile ? '28px 56px' : 'clamp(14px, 2vw, 22px) clamp(28px, 4vw, 56px)',
-            width: isMobile ? '80%' : 'auto',
+            padding: isMobile ? '32px 64px' : 'clamp(14px, 2vw, 22px) clamp(28px, 4vw, 56px)',
+            width: isMobile ? '85%' : 'auto',
             justifyContent: isMobile ? 'center' : 'flex-start',
             textDecoration: 'none',
             letterSpacing: '-0.01em',
